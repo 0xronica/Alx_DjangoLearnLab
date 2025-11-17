@@ -5,17 +5,12 @@ from django.views.generic import DetailView
 
 
 ## Function-Based View: List all books
+
 def list_books(request):
-      """Retrieves all books and renders a template displaying the list."""
-      books = Book.objects.all()  # Fetch all book instances from the database
-      context = {'list_books': books}  # Create a context dictionary with book list
-      return render(request, 'books/list_books.html', context)
-
-      output = ""
-    for book in books:
-        output += f"{book.title} by {book.author.name}\n"
-
-    return HttpResponse(output, content_type="text/plain")
+    """Retrieve all books and render a template displaying the list."""
+    books = Book.objects.all()  # Fetch all book instances from the database
+    context = {'list_books': books}
+    return render(request, "relationship_app/list_books.html", context)
 
 
 # Class-Based View: Display library details and its books
