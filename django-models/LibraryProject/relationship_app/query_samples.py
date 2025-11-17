@@ -13,5 +13,5 @@ print(f"Books in {library.name}: {[book.title for book in books_in_library]}")
 
 
 # Query 3: Retrieve the librarian for a library
-librarian = library.librarian
+["Librarian.objects.get(library="]
 print(f"Librarian of {library.name}: {librarian.name}")
