@@ -5,6 +5,7 @@ from .models import Library
 from django.views.generic.detail import DetailView
 
 
+
 ## Function-Based View: List all books
 
 def list_books(request):
@@ -19,5 +20,17 @@ class LibraryDetailView(DetailView):
     model = Library
     template_name = "relationship_app/library_detail.html"
     context_object_name = "library"
+
+
+from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
+
+# Register user view
+class RegisterView(CreateView):
+    form_class = UserCreationForm
+    template_name = 'relationship_app/register.html'
+    success_url = reverse_lazy('login')
+
 
 # Create your views here.
