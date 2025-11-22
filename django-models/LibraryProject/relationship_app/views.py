@@ -69,4 +69,27 @@ def librarian_view(request):
 def member_view(request):
     return render(request, 'relationship_app/member_view.html')
 
+
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponse
+from django.contrib.auth.decorators import permission_required
+from .models import Book
+
+# Add Book – Admin or Librarian
+@permission_required('relationship_app.can_add_book', raise_exception=True)
+def add_book(request):
+    if not (is_admin(request.user) or is_librarian(request.user)):
+        return HttpResponse("You do not have the required role.", status=403)
+
+#Edit Book- Admin or Librarian
+@permission_required('relationship_app.can_change_book', raise_exception=True)
+def edit_book(request, pk):
+    if not (is_admin(request.user) or is_librarian(request.user)):
+        return HttpResponse("You do not have the required role.", status=403)
+
+# Delete Book – Admin only
+@permission_required('relationship_app.can_delete_book', raise_exception=True)
+def delete_book(request, pk):
+    if not is_admin(request.user):
+        return HttpResponse("You do not have the required role.", status=403)
 # Create your views here.
