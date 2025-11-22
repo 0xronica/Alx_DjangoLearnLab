@@ -21,7 +21,8 @@ class LibraryDetailView(DetailView):
     template_name = "relationship_app/library_detail.html"
     context_object_name = "library"
 
-
+from django.contrib.auth import login
+from django.contrib.auth import logout
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
@@ -32,5 +33,8 @@ class RegisterView(CreateView):
     template_name = 'relationship_app/register.html'
     success_url = reverse_lazy('login')
 
+def Logoutview(request):
+    logout(request)
+    return render(request, "relationship_app/logout.html")
 
 # Create your views here.
