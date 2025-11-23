@@ -12,7 +12,7 @@ from django.contrib.auth.decorators import permission_required
 from .models import Article
 
 @permission_required('bookshelf.can_view', raise_exception=True)
-def article_view(request):
+def book_list(request):
     return HttpResponse("List of articles.")
     
 
