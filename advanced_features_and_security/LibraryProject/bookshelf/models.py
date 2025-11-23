@@ -6,6 +6,21 @@ class Book(models.Model):
     author = models.CharField(max_length=100)
     publication_year = models.IntegerField()
 
+class Article(models.Model):
+    title = models.CharField(max_length=255)
+    body = models.TextField()
+
+    class Meta:
+        permissions = [
+            ("can_view", "Can view articles"),
+            ("can_create", "Can create articles"),
+            ("can_edit", "Can edit articles"),
+            ("can_delete", "Can delete articles"),
+        ]
+
+ def __str__(self):
+        return self.title
+
 # accounts/models.py
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
