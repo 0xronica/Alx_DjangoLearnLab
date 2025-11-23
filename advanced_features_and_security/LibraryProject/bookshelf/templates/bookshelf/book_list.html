@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Books</h1>
+
+{% if books %}
+    <ul>
+        {% for book in books %}
+            <li>{{ book.title|escape }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No books available.</p>
+{% endif %}
+
+<a href="{% url 'book_create' %}">Add a New Book</a>
+{% endblock %}
+
