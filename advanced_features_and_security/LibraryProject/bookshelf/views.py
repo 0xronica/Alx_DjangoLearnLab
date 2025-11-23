@@ -39,7 +39,7 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import permission_required
 from django.http import HttpResponse
 from .models import Book
-from .forms import BookForm
+from .forms import ExampleForm
 
 # Secure list view
 @permission_required('bookshelf.can_view', raise_exception=True)
@@ -51,19 +51,19 @@ def book_list(request):
 @permission_required('bookshelf.can_create', raise_exception=True)
 def book_create(request):
     if request.method == 'POST':
-        form = BookForm(request.POST)
+        form = ExampleForm(request.POST)
         if form.is_valid():  # Validation prevents malicious input
             form.save()
             return HttpResponse("Book created successfully.")
     else:
-        form = BookForm()
+        form = ExampleForm()
     return render(request, 'bookshelf/form_example.html', {'form': form})
 
 # Secure detail/edit view
 @permission_required('bookshelf.can_edit', raise_exception=True)
 def book_edit(request, pk):
     book = get_object_or_404(Book, pk=pk)
-    form = BookForm(request.POST or None, instance=book)
+    form = ExampleForm(request.POST or None, instance=book)
     if request.method == 'POST' and form.is_valid():
         form.save()
         return HttpResponse("Book updated successfully.")
