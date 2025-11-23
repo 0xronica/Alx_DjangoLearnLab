@@ -23,9 +23,26 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-813=8e8el1g!!!(afacwod$igv!#x_peir$hyvu6x027xy0g#$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
+
+# Browser security headers
+SECURE_BROWSER_XSS_FILTER = True  # Enables XSS filtering in the browser
+SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevents the browser from MIME-sniffing
+
+X_FRAME_OPTIONS = 'DENY'
+
+# Cookies over HTTPS only
+CSRF_COOKIE_SECURE = True  # CSRF cookie sent only over HTTPS
+SESSION_COOKIE_SECURE = True  # Session cookie sent only over HTTPS
+
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = ("'self'",)
+CSP_STYLE_SRC = ("'self'", "'unsafe-inline'")
+CSP_IMG_SRC = ("'self'", "data:")
+
+
 
 
 # Application definition
@@ -44,6 +61,7 @@ INSTALLED_APPS = [
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
 
 MIDDLEWARE = [
+    'csp.middleware.CSPMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
