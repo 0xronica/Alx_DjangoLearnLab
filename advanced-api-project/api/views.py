@@ -4,6 +4,7 @@ from django.shortcuts import render
 from rest_framework import generics, permissions
 from .models import Book
 from .serializers import BookSerializer
+from rest_framework import IsAuthenticatedOrReadOnly, IsAuthenticated
 
 class ListView(generics.ListAPIView):
     queryset = Book.objects.all()
